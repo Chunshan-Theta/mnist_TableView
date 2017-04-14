@@ -7,9 +7,9 @@
 //
 import UIKit
 
-class MyTableViewController: UITableViewController {
-    
-    var items = ["Item 1", "Item 2", "Item 3","123"]
+class SourceTableViewController: UITableViewController {
+/*
+    var items = ["Item 1", "Item 2", "Item 3"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,12 +17,43 @@ class MyTableViewController: UITableViewController {
         navigationItem.title = "hello TableView"
         
         tableView.register(MyCell.self, forCellReuseIdentifier: "cellId")
-        
+        //tableView.register(Header.self, forHeaderFooterViewReuseIdentifier: "headerId")
         
         tableView.sectionHeaderHeight = 50
         
+        //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Insert", style: .plain, target: self, action: #selector(MyTableViewController.insert))
+        
+        //navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Batch Insert", style: .plain, target: self, action: #selector(MyTableViewController.insertBatch))
     }
-    
+    /*
+     func insertBatch() {
+     var indexPaths = [NSIndexPath]()
+     for i in items.count...items.count + 5 {
+     items.append("Item \(i + 1)")
+     //indexPaths.append(NSIndexPath(forRow: i, inSection: 0))
+     }
+     
+     var bottomHalfIndexPaths = [NSIndexPath]()
+     for _ in 0...indexPaths.count / 2 - 1 {
+     bottomHalfIndexPaths.append(indexPaths.removeLast())
+     }
+     
+     tableView.beginUpdates()
+     
+     tableView.insertRows(at: indexPaths as [IndexPath], with: .right)
+     tableView.insertRows(at: bottomHalfIndexPaths as [IndexPath], with: .left)
+     
+     tableView.endUpdates()
+     }
+     
+     func insert() {
+     items.append("Item \(items.count + 1)")
+     
+     //let insertionIndexPath = NSIndexPath(forRow: items.count - 1, inSection: 0)
+     
+     //tableView.insertRowsAtIndexPaths([insertionIndexPath], withRowAnimation: .Automatic)
+     }
+     */
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
@@ -33,21 +64,51 @@ class MyTableViewController: UITableViewController {
         myCell.myTableViewController = self
         return myCell
     }
-
     
+    
+    /*
+     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+     return tableView.dequeueReusableHeaderFooterView(withIdentifier: "headerId")
+     
+     }
+     */
     func deleteCell(cell: UITableViewCell) {
         if let deletionIndexPath = tableView.indexPath(for: cell) {
             items.remove(at: deletionIndexPath.row)
             tableView.deleteRows(at: [deletionIndexPath], with: .automatic)
         }
     }
-    func printH(){
-        print("hello world")
-    }
     
 }
-
-// custom class of cell
+/*
+ class Header: UITableViewHeaderFooterView {
+ 
+ override init(reuseIdentifier: String?) {
+ super.init(reuseIdentifier: reuseIdentifier)
+ setupViews()
+ }
+ 
+ required init?(coder aDecoder: NSCoder) {
+ fatalError("init(coder:) has not been implemented")
+ }
+ 
+ let nameLabel: UILabel = {
+ let label = UILabel()
+ label.text = "My Header"
+ label.translatesAutoresizingMaskIntoConstraints = false
+ label.font = UIFont.boldSystemFont(ofSize: 14)
+ return label
+ }()
+ 
+ func setupViews() {
+ addSubview(nameLabel)
+ addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-16-[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": nameLabel]))
+ addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": nameLabel]))
+ 
+ }
+ 
+ }
+ */
 class MyCell: UITableViewCell {
     
     var myTableViewController: MyTableViewController?
@@ -91,7 +152,6 @@ class MyCell: UITableViewCell {
     
     func handleAction() {
         myTableViewController?.deleteCell(cell: self)
-        myTableViewController?.printH()
     }
-    
+*/    
 }
